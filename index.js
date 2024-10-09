@@ -4,9 +4,6 @@ import { connectToDatabase } from "./DBConnect/DbConnect.js";
 import { subscriberModel } from "./utils/model.js";
 import { v4 as uuidv4 } from "uuid";
 import cors from "cors";
-import path from "path";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -14,9 +11,6 @@ await connectToDatabase();
 
 const app = express();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use(express.static(path.join(__dirname, ".", "dist")));
 
 app.use(
   cors({
@@ -27,8 +21,6 @@ app.use(
 app.use(json());
 
 
-
-// Handle undefined routes
 
 app.get("/", async (req, res) => {
   res.send("It is working");
@@ -67,9 +59,6 @@ app.get('/api/sub-lists',async(req,res)=>{
   }
 })
 
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, ".", "dist", "index.html"));
-});
 
 const PORT = 5000;
 
